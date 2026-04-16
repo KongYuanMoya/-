@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UB Platform · 导师入驻 - 视觉稿</title>
+  <style>
+    /* ===========================
+       设计规范 Token
+    =========================== */
+    :root {
+      /* 主色板 */
+      --color-primary:       #1A3A6B;   /* 深海蓝 - 品牌主色 */
+      --color-primary-mid:   #2355A0;   /* 中蓝 - hover */
+      --color-primary-light: #EBF1FA;   /* 浅蓝 - 背景色 */
+      --color-gold:          #D4A847;   /* 金色 - 强调/徽章 */
+      --color-gold-light:    #FDF6E3;   /* 浅金背景 */
+      --color-accent:        #E85D26;   /* 橙红 - CTA按钮 */
+      --color-accent-hover:  #C94D1A;
+
+      /* 中性色 */
+      --color-gray-50:  #F8F9FA;
+      --color-gray-100: #F0F2F5;
+      --color-gray-200: #E2E6EA;
+      --color-gray-400: #98A2B3;
+      --color-gray-600: #475467;
+      --color-gray-800: #1D2939;
+      --color-white:    #FFFFFF;
+
+      /* 语义色 */
+      --color-success: #12B76A;
+      --color-warning: #F79009;
+      --color-error:   #F04438;
+
+      /* 字体 */
+      --font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      --font-size-xs:  12px;
+      --font-size-sm:  14px;
+      --font-size-base:16px;
+      --font-size-lg:  18px;
+      --font-size-xl:  20px;
+      --font-size-2xl: 24px;
+      --font-size-3xl: 32px;
+      --font-size-4xl: 40px;
+      --font-size-5xl: 52px;
+
+      /* 间距 */
+      --space-1:  4px;
+      --space-2:  8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10:40px;
+      --space-12:48px;
+      --space-16:64px;
+      --space-20:80px;
+      --space-24:96px;
+
+      /* 圆角 */
+      --radius-sm:  4px;
+      --radius-md:  8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-2xl:24px;
+      --radius-full:9999px;
+
+      /* 阴影 */
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-xl: 0 24px 48px rgba(0,0,0,0.14), 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    /* ===========================
+       全局重置
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      color: var(--color-gray-800);
+      line-height: 1.6;
+      background: var(--color-white);
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ===========================
+       工具类
+    =========================== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+    .section-tag {
+      display: inline-block;
+      padding: var(--space-1) var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-size: var(--font-size-3xl);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--color-gray-800);
+      margin-top: var(--space-4);
+    }
+    .section-subtitle {
+      font-size: var(--font-size-lg);
+      color: var(--color-gray-600);
+      margin-top: var(--space-4);
+      line-height: 1.7;
+    }
+
+    /* 按钮 */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 14px 32px;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--color-accent);
+      color: var(--color-white);
+      box-shadow: 0 4px 14px rgba(232,93,38,0.35);
+    }
+    .btn-primary:hover { background: var(--color-accent-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,93,38,0.4); }
+    .btn-outline {
+      background: transparent;
+      color: var(--color-white);
+      border: 2px solid rgba(255,255,255,0.6);
+    }
+    .btn-outline:hover { border-color: var(--color-white); background: rgba(255,255,255,0.1); }
+    .btn-lg { padding: 16px 40px; font-size: var(--font-size-lg); }
+    .btn-gold {
+      background: linear-gradient(135deg, #D4A847 0%, #E8C060 50%, #C4942A 100%);
+      color: #5C3D0A;
+      box-shadow: 0 4px 14px rgba(212,168,71,0.4);
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,168,71,0.5); }
+
+    /* ===========================
+       导航栏
+    =========================== */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(26,58,107,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--color-gold) 0%, #E8C060 100%);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: var(--font-size-xl);
+      color: #5C3D0A;
+    }
+    .logo-text {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      color: var(--color-white);
+    }
+    .logo-text span {
+      color: var(--color-gold);
+    }
+    .navbar-links {
+      display: flex; gap: var(--space-8);
+    }
+    .navbar-links a {
+      color: rgba(255,255,255,0.75);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .navbar-links a:hover { color: var(--color-white); }
+    .navbar-cta {
+      display: flex; align-items: center; gap: var(--space-4);
+    }
+    .navbar-login {
+      color: rgba(255,255,255,0.75);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+    }
+
+    /* ===========================
+       Hero 区域
+    =========================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, #0D2347 0%, #1A3A6B 40%, #2355A0 75%, #1A4F8A 100%);
+      overflow: hidden;
+      padding-top: 68px;
+    }
+    .hero-bg-shapes {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .hero-circle-1 {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,168,71,0.12) 0%, transparent 70%);
+      top: -100px; right: -100px;
+    }
+    .hero-circle-2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+      bottom: -80px; left: -80px;
+    }
+    .hero-grid-line {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .hero-content {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+      padding: var(--space-20) 0;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 6px 16px;
+      background: rgba(212,168,71,0.15);
+      border: 1px solid rgba(212,168,71,0.4);
+      border-radius: var(--radius-full);
+      color: var(--color-gold);
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      margin-bottom: var(--space-6);
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--color-gold);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100%{ opacity:1; transform:scale(1); }
+      50%{ opacity:0.5; transform:scale(1.3); }
+    }
+    .hero-title {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--color-white);
+      letter-spacing: -0.02em;
+    }
+    .hero-title-highlight {
+      background: linear-gradient(90deg, var(--color-gold) 0%, #E8C060 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-desc {
+      font-size: var(--font-size-lg);
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+      margin-top: var(--space-5);
+    }
+    .hero-pills {
+      display: flex; flex-wrap: wrap; gap: var(--space-3);
+      margin-top: var(--space-6);
+    }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-full);
+      color: rgba(255,255,255,0.85);
+      font-size: var(--font-size-sm);
+    }
+    .hero-pill-icon { font-size: 15px; }
+    .hero-actions {
+      display: flex; align-items: center; gap: var(--space-4);
+      margin-top: var(--space-8);
+    }
+    .hero-social-proof {
+      display: flex; align-items: center; gap: var(--space-4);
+      margin-top: var(--space-8);
+      padding-top: var(--space-6);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-avatars {
+      display: flex;
+    }
+    .hero-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.6);
+      background: linear-gradient(135deg, #2355A0, var(--color-gold));
+      margin-left: -8px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 12px; font-weight: 600;
+    }
+    .hero-avatars .hero-avatar:first-child { margin-left: 0; }
+    .hero-social-text {
+      color: rgba(255,255,255,0.65);
+      font-size: var(--font-size-sm);
+    }
+    .hero-social-text strong { color: var(--color-white); }
+
+    /* Hero 右侧卡片 */
+    .hero-card {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-6);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    }
+    .hero-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--space-5);
+    }
+    .hero-card-title {
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      color: var(--color-white);
+    }
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .status-online {
+      background: rgba(18,183,106,0.2);
+      color: #34D399;
+    }
+    .mentor-card-item {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .mentor-card-item:last-child { border-bottom: none; }
+    .mentor-avatar-placeholder {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 16px; color: white;
+      flex-shrink: 0;
+    }
+    .mentor-info { flex: 1; }
+    .mentor-name { font-size: var(--font-size-sm); font-weight: 600; color: var(--color-white); }
+    .mentor-meta { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+    .mentor-earnings {
+      font-size: var(--font-size-sm); font-weight: 700;
+      color: var(--color-gold);
+    }
+    .hero-card-footer {
+      margin-top: var(--space-5);
+      padding: var(--space-4);
+      background: rgba(212,168,71,0.1);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(212,168,71,0.2);
+    }
+    .hero-card-footer-label { font-size: 12px; color: rgba(255,255,255,0.55); }
+    .hero-card-footer-value {
+      font-size: var(--font-size-2xl); font-weight: 800;
+      color: var(--color-gold); margin-top: 2px;
+    }
+    .hero-card-footer-sub { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+    /* ===========================
+       数据统计区
+    =========================== */
+    .stats-section {
+      background: var(--color-primary);
+      padding: var(--space-12) 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .stat-item {
+      background: rgba(255,255,255,0.05);
+      padding: var(--space-8) var(--space-6);
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .stat-item:hover { background: rgba(255,255,255,0.08); }
+    .stat-number {
+      font-size: 44px; font-weight: 800;
+      background: linear-gradient(135deg, var(--color-gold) 0%, #E8C060 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .stat-unit {
+      font-size: var(--font-size-xl); font-weight: 700;
+    }
+    .stat-label {
+      font-size: var(--font-size-sm); color: rgba(255,255,255,0.6);
+      margin-top: var(--space-2);
+    }
+
+    /* ===========================
+       Section 通用
+    =========================== */
+    .section {
+      padding: var(--space-24) 0;
+    }
+    .section-alt { background: var(--color-gray-50); }
+    .section-dark {
+      background: linear-gradient(135deg, #0D2347 0%, #1A3A6B 100%);
+      color: var(--color-white);
+    }
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto var(--space-16);
+    }
+    .section-header .section-tag {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+    .section-dark .section-header .section-tag {
+      background: rgba(212,168,71,0.15);
+      color: var(--color-gold);
+    }
+    .section-dark .section-title { color: var(--color-white); }
+    .section-dark .section-subtitle { color: rgba(255,255,255,0.65); }
+
+    /* ===========================
+       资质要求区
+    =========================== */
+    .requirements-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+      align-items: start;
+    }
+    .req-card {
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      border: 1px solid var(--color-gray-200);
+    }
+    .req-card-yes { background: var(--color-white); }
+    .req-card-no { background: #FEF2F2; border-color: #FECACA; }
+    .req-card-title {
+      display: flex; align-items: center; gap: var(--space-3);
+      font-size: var(--font-size-lg); font-weight: 700;
+      margin-bottom: var(--space-5);
+    }
+    .req-card-title .icon-circle {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+    .icon-circle-yes { background: #DCFCE7; }
+    .icon-circle-no { background: #FEE2E2; }
+    .req-item {
+      display: flex; align-items: flex-start; gap: var(--space-3);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-gray-100);
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-600);
+    }
+    .req-item:last-child { border-bottom: none; }
+    .req-item-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .req-highlight {
+      margin-top: var(--space-5);
+      padding: var(--space-4);
+      background: var(--color-primary-light);
+      border-radius: var(--radius-lg);
+      border-left: 4px solid var(--color-primary);
+      font-size: var(--font-size-sm);
+      color: var(--color-primary);
+      line-height: 1.6;
+    }
+
+    /* ===========================
+       流程步骤区
+    =========================== */
+    .steps-timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+    }
+    .steps-timeline::before {
+      content: '';
+      position: absolute;
+      top: 32px; left: calc(100% / 12); right: calc(100% / 12);
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-gold) 100%);
+    }
+    .step-item {
+      position: relative;
+      text-align: center;
+      padding: 0 var(--space-3);
+    }
+    .step-number-wrap {
+      position: relative;
+      display: flex; justify-content: center;
+      margin-bottom: var(--space-5);
+    }
+    .step-number {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--font-size-xl); font-weight: 800;
+      position: relative; z-index: 1;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .step-number:hover { transform: scale(1.08); }
+    .step-1 .step-number { background: linear-gradient(135deg, #2355A0, #1A3A6B); color: white; box-shadow: 0 4px 16px rgba(35,85,160,0.35); }
+    .step-2 .step-number { background: linear-gradient(135deg, #2D68B5, #2355A0); color: white; box-shadow: 0 4px 16px rgba(45,104,181,0.35); }
+    .step-3 .step-number { background: linear-gradient(135deg, #3A7DC0, #2D68B5); color: white; box-shadow: 0 4px 16px rgba(58,125,192,0.35); }
+    .step-4 .step-number { background: linear-gradient(135deg, #4890CB, #3A7DC0); color: white; box-shadow: 0 4px 16px rgba(72,144,203,0.35); }
+    .step-5 .step-number { background: linear-gradient(135deg, #C4942A, #D4A847); color: white; box-shadow: 0 4px 16px rgba(196,148,42,0.35); }
+    .step-6 .step-number { background: linear-gradient(135deg, var(--color-gold), #E8C060); color: #5C3D0A; box-shadow: 0 4px 16px rgba(212,168,71,0.4); }
+    .step-icon { font-size: 22px; }
+    .step-title {
+      font-size: var(--font-size-sm); font-weight: 700;
+      color: var(--color-gray-800); margin-bottom: var(--space-2);
+    }
+    .step-desc {
+      font-size: 12px; color: var(--color-gray-400); line-height: 1.5;
+    }
+    .step-time {
+      display: inline-block;
+      margin-top: var(--space-2);
+      padding: 2px 10px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-full);
+      font-size: 11px; font-weight: 600;
+      color: var(--color-primary);
+    }
+    .step-6 .step-time {
+      background: var(--color-gold-light);
+      color: #7C5A0A;
+    }
+
+    /* ===========================
+       材料准备区
+    =========================== */
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+    .material-card {
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      border: 1.5px solid var(--color-gray-200);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .material-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .material-card.required {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+    .material-card-icon {
+      font-size: 32px; margin-bottom: var(--space-4);
+    }
+    .material-card-title {
+      font-size: var(--font-size-base); font-weight: 700;
+      color: var(--color-gray-800);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .required-tag {
+      padding: 2px 8px;
+      background: #FEE2E2; color: #DC2626;
+      border-radius: var(--radius-full);
+      font-size: 11px; font-weight: 600;
+    }
+    .optional-tag {
+      padding: 2px 8px;
+      background: var(--color-gray-100); color: var(--color-gray-600);
+      border-radius: var(--radius-full);
+      font-size: 11px; font-weight: 600;
+    }
+    .material-card-desc {
+      font-size: var(--font-size-sm); color: var(--color-gray-600);
+      margin-top: var(--space-2); line-height: 1.6;
+    }
+    .material-formats {
+      display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4);
+    }
+    .format-chip {
+      padding: 2px 10px;
+      background: var(--color-gray-100);
+      border-radius: var(--radius-full);
+      font-size: 12px; font-weight: 500;
+      color: var(--color-gray-600);
+    }
+    .materials-tip {
+      margin-top: var(--space-8);
+      padding: var(--space-5) var(--space-6);
+      background: var(--color-gold-light);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(212,168,71,0.3);
+      display: flex; align-items: flex-start; gap: var(--space-4);
+    }
+    .materials-tip-icon { font-size: 24px; flex-shrink: 0; }
+    .materials-tip-text { font-size: var(--font-size-sm); color: #7C5A0A; line-height: 1.7; }
+
+    /* ===========================
+       收益福利区
+    =========================== */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+    .benefit-card {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .benefit-card:hover {
+      border-color: rgba(212,168,71,0.4);
+      background: rgba(255,255,255,0.09);
+      transform: translateY(-3px);
+    }
+    .benefit-icon-wrap {
+      width: 56px; height: 56px;
+      border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      margin-bottom: var(--space-5);
+    }
+    .benefit-card-title {
+      font-size: var(--font-size-lg); font-weight: 700;
+      color: var(--color-white); margin-bottom: var(--space-3);
+    }
+    .benefit-card-desc {
+      font-size: var(--font-size-sm); color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+    .benefit-highlight {
+      font-size: var(--font-size-2xl); font-weight: 800;
+      background: linear-gradient(90deg, var(--color-gold) 0%, #E8C060 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-top: var(--space-4);
+    }
+
+    /* ===========================
+       FAQ 区域
+    =========================== */
+    .faq-list { max-width: 720px; margin: 0 auto; }
+    .faq-item {
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-4);
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .faq-item:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .faq-question {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-5) var(--space-6);
+      background: var(--color-white);
+      border: none; cursor: pointer;
+      text-align: left;
+      font-size: var(--font-size-base); font-weight: 600;
+      color: var(--color-gray-800);
+      gap: var(--space-4);
+      font-family: var(--font-family);
+    }
+    .faq-toggle {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--color-primary-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: var(--color-primary);
+      flex-shrink: 0; transition: transform 0.2s, background 0.2s;
+    }
+    .faq-item.open .faq-toggle {
+      transform: rotate(45deg);
+      background: var(--color-primary); color: white;
+    }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; }
+    .faq-answer-inner {
+      padding: 0 var(--space-6) var(--space-5);
+      font-size: var(--font-size-sm); color: var(--color-gray-600);
+      line-height: 1.75;
+      border-top: 1px solid var(--color-gray-100);
+      padding-top: var(--space-4);
+    }
+
+    /* ===========================
+       导师证言区
+    =========================== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+    .testimonial-card {
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-7);
+      border: 1px solid var(--color-gray-200);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .testimonial-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .testimonial-quote {
+      font-size: var(--font-size-sm); color: var(--color-gray-600);
+      line-height: 1.8; margin-bottom: var(--space-5);
+      font-style: italic;
+    }
+    .testimonial-quote::before { content: '"'; font-size: 28px; color: var(--color-primary); line-height: 0; vertical-align: -12px; margin-right: 4px; }
+    .testimonial-author {
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .testimonial-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 15px; color: white;
+    }
+    .testimonial-name { font-size: var(--font-size-sm); font-weight: 700; color: var(--color-gray-800); }
+    .testimonial-meta { font-size: 12px; color: var(--color-gray-400); margin-top: 2px; }
+    .testimonial-stars { color: var(--color-gold); font-size: 13px; }
+
+    /* ===========================
+       最终 CTA 区
+    =========================== */
+    .final-cta {
+      background: linear-gradient(135deg, #0D2347 0%, #1A3A6B 50%, #2355A0 100%);
+      padding: var(--space-24) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(212,168,71,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(35,85,160,0.3) 0%, transparent 50%);
+    }
+    .final-cta-inner { position: relative; z-index: 1; }
+    .final-cta-title {
+      font-size: 44px; font-weight: 800;
+      color: var(--color-white); line-height: 1.2;
+      margin-bottom: var(--space-5);
+    }
+    .final-cta-sub {
+      font-size: var(--font-size-lg); color: rgba(255,255,255,0.65);
+      margin-bottom: var(--space-8); max-width: 520px; margin-left: auto; margin-right: auto;
+    }
+    .final-cta-actions { display: flex; justify-content: center; gap: var(--space-4); flex-wrap: wrap; }
+    .final-cta-note {
+      margin-top: var(--space-6);
+      font-size: var(--font-size-sm); color: rgba(255,255,255,0.45);
+    }
+
+    /* ===========================
+       Footer
+    =========================== */
+    .footer {
+      background: #0A1628;
+      padding: var(--space-12) 0 var(--space-8);
+      color: rgba(255,255,255,0.5);
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: var(--space-4);
+    }
+    .footer-logo { display: flex; align-items: center; gap: var(--space-2); }
+    .footer-copy { font-size: var(--font-size-sm); }
+    .footer-links { display: flex; gap: var(--space-6); }
+    .footer-links a { font-size: var(--font-size-sm); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--color-white); }
+
+    /* ===========================
+       设计标注图层（仅视觉稿）
+    =========================== */
+    .design-label {
+      display: none; /* 正式版关闭，设计评审时可开启 */
+      position: absolute;
+      background: #FF4444; color: white;
+      font-size: 11px; font-weight: 600;
+      padding: 2px 6px; border-radius: 4px;
+      z-index: 999;
+    }
+
+    /* ===========================
+       视觉稿标注侧边栏
+    =========================== */
+    .spec-panel {
+      position: fixed;
+      right: 0; top: 50%; transform: translateY(-50%);
+      background: rgba(26,58,107,0.95);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+      padding: var(--space-4);
+      z-index: 200;
+      width: 200px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-right: none;
+    }
+    .spec-panel-title { font-size: 11px; font-weight: 700; color: var(--color-gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-3); }
+    .spec-panel ul { list-style: none; }
+    .spec-panel li { font-size: 12px; color: rgba(255,255,255,0.6); padding: 3px 0; }
+    .spec-panel li a { color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .spec-panel li a:hover { color: var(--color-gold); }
+    .spec-divider { height: 1px; background: rgba(255,255,255,0.1); margin: var(--space-3) 0; }
+    .spec-color-row { display: flex; gap: 4px; margin-top: var(--space-2); }
+    .spec-color-swatch {
+      width: 20px; height: 20px; border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer; position: relative;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .spec-color-swatch:hover { transform: scale(1.3); }
+
+    /* ===========================
+       滚动动画
+    =========================== */
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===========================
+       响应式
+    =========================== */
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-card { display: none; }
+      .steps-timeline { grid-template-columns: repeat(3, 1fr); }
+      .steps-timeline::before { display: none; }
+      .requirements-grid { grid-template-columns: 1fr; }
+      .materials-grid { grid-template-columns: repeat(2, 1fr); }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .spec-panel { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ======================================================
+     设计规范侧边栏（视觉稿专用标注）
+====================================================== -->
+<aside class="spec-panel">
+  <div class="spec-panel-title">设计规范</div>
+  <ul>
+    <li><a href="#hero">S1 · Hero 首屏</a></li>
+    <li><a href="#stats">S2 · 数据统计</a></li>
+    <li><a href="#requirements">S3 · 资质要求</a></li>
+    <li><a href="#steps">S4 · 入驻流程</a></li>
+    <li><a href="#materials">S5 · 材料准备</a></li>
+    <li><a href="#benefits">S6 · 收益福利</a></li>
+    <li><a href="#testimonials">S7 · 导师证言</a></li>
+    <li><a href="#faq">S8 · 常见问题</a></li>
+    <li><a href="#cta">S9 · 最终CTA</a></li>
+  </ul>
+  <div class="spec-divider"></div>
+  <div class="spec-panel-title">主色板</div>
+  <div class="spec-color-row">
+    <div class="spec-color-swatch" style="background:#1A3A6B" title="#1A3A6B 品牌主色"></div>
+    <div class="spec-color-swatch" style="background:#2355A0" title="#2355A0 中蓝"></div>
+    <div class="spec-color-swatch" style="background:#D4A847" title="#D4A847 金色"></div>
+    <div class="spec-color-swatch" style="background:#E85D26" title="#E85D26 CTA橙红"></div>
+    <div class="spec-color-swatch" style="background:#EBF1FA" title="#EBF1FA 浅蓝背景"></div>
+  </div>
+  <div class="spec-divider"></div>
+  <div class="spec-panel-title">字体规范</div>
+  <ul>
+    <li>标题: 52/40/32px</li>
+    <li>正文: 16/14px</li>
+    <li>标注: 12/11px</li>
+    <li>行高: 1.25~1.75</li>
+  </ul>
+</aside>
+
+
+<!-- ======================================================
+     导航栏
+====================================================== -->
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <div class="navbar-logo">
+        <div class="logo-mark">U</div>
+        <div class="logo-text">UB <span>Platform</span></div>
+      </div>
+      <div class="navbar-links">
+        <a href="#requirements">资质要求</a>
+        <a href="#steps">入驻流程</a>
+        <a href="#materials">材料准备</a>
+        <a href="#benefits">收益福利</a>
+        <a href="#faq">常见问题</a>
+      </div>
+      <div class="navbar-cta">
+        <a href="#" class="navbar-login">已有账号 登录</a>
+        <a href="#" class="btn btn-gold" style="padding:10px 24px;font-size:14px;">立即申请入驻</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ======================================================
+     S1 · Hero 首屏
+====================================================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg-shapes">
+    <div class="hero-circle-1"></div>
+    <div class="hero-circle-2"></div>
+    <div class="hero-grid-line"></div>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <!-- 左侧文案 -->
+      <div>
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          现已开放导师入驻
+        </div>
+        <h1 class="hero-title">
+          成为认证导师<br>
+          用专业赋能<br>
+          <span class="hero-title-highlight">下一代精英</span>
+        </h1>
+        <p class="hero-desc">
+          UB Platform 聚焦 IB · AP · ALevel · IGCSE 国际课程辅导。<br>
+          加入平台，灵活接单，与顶尖学生共同成长，实现你的专业价值。
+        </p>
+        <div class="hero-pills">
+          <div class="hero-pill"><span class="hero-pill-icon">📚</span> IB / AP</div>
+          <div class="hero-pill"><span class="hero-pill-icon">🎓</span> ALevel</div>
+          <div class="hero-pill"><span class="hero-pill-icon">📐</span> IGCSE</div>
+          <div class="hero-pill"><span class="hero-pill-icon">💻</span> 在线教学</div>
+          <div class="hero-pill"><span class="hero-pill-icon">🌏</span> 全球学生</div>
+        </div>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary btn-lg">立即申请入驻 →</a>
+          <a href="#steps" class="btn btn-outline">了解入驻流程</a>
+        </div>
+        <div class="hero-social-proof">
+          <div class="hero-avatars">
+            <div class="hero-avatar" style="background:linear-gradient(135deg,#2355A0,#3A7DC0)">张</div>
+            <div class="hero-avatar" style="background:linear-gradient(135deg,#D4A847,#E8C060)">李</div>
+            <div class="hero-avatar" style="background:linear-gradient(135deg,#12B76A,#34D399)">王</div>
+            <div class="hero-avatar" style="background:linear-gradient(135deg,#9B5CF6,#A78BFA)">陈</div>
+            <div class="hero-avatar" style="background:linear-gradient(135deg,#E85D26,#F97316)">刘</div>
+          </div>
+          <div class="hero-social-text">
+            已有 <strong>500+</strong> 位导师加入，覆盖 <strong>20+</strong> 核心科目
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧数据卡片 -->
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <div class="hero-card-title">本月活跃导师</div>
+          <div class="status-badge status-online">● 实时更新</div>
+        </div>
+
+        <div class="mentor-card-item">
+          <div class="mentor-avatar-placeholder" style="background:linear-gradient(135deg,#1A3A6B,#2355A0)">张</div>
+          <div class="mentor-info">
+            <div class="mentor-name">张晓萌</div>
+            <div class="mentor-meta">剑桥大学 · IB数学&物理</div>
+          </div>
+          <div class="mentor-earnings">¥12,400</div>
+        </div>
+
+        <div class="mentor-card-item">
+          <div class="mentor-avatar-placeholder" style="background:linear-gradient(135deg,#D4A847,#C4942A)">李</div>
+          <div class="mentor-info">
+            <div class="mentor-name">李明远</div>
+            <div class="mentor-meta">耶鲁大学 · AP化学&生物</div>
+          </div>
+          <div class="mentor-earnings">¥9,800</div>
+        </div>
+
+        <div class="mentor-card-item">
+          <div class="mentor-avatar-placeholder" style="background:linear-gradient(135deg,#12B76A,#059669)">王</div>
+          <div class="mentor-info">
+            <div class="mentor-name">王思颖</div>
+            <div class="mentor-meta">LSE · ALevel经济&商业</div>
+          </div>
+          <div class="mentor-earnings">¥15,200</div>
+        </div>
+
+        <div class="mentor-card-item">
+          <div class="mentor-avatar-placeholder" style="background:linear-gradient(135deg,#9B5CF6,#7C3AED)">陈</div>
+          <div class="mentor-info">
+            <div class="mentor-name">陈宇轩</div>
+            <div class="mentor-meta">多伦多大学 · IGCSE数学</div>
+          </div>
+          <div class="mentor-earnings">¥8,600</div>
+        </div>
+
+        <div class="hero-card-footer">
+          <div class="hero-card-footer-label">平台导师月均收入</div>
+          <div class="hero-card-footer-value">¥8,500<span style="font-size:16px;font-weight:400;color:rgba(255,255,255,0.5)"> / 月</span></div>
+          <div class="hero-card-footer-sub">优质导师最高突破 ¥20,000 / 月</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     S2 · 数据统计
+====================================================== -->
+<section class="stats-section" id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">500<span class="stat-unit">+</span></div>
+        <div class="stat-label">认证导师</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">20<span class="stat-unit">+</span></div>
+        <div class="stat-label">辅导科目</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">95<span class="stat-unit">%</span></div>
+        <div class="stat-label">学生满意度</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">8500<span class="stat-unit">¥</span></div>
+        <div class="stat-label">导师月均收入</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     S3 · 资质要求
+====================================================== -->
+<section class="section section-alt" id="requirements">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">申请条件</div>
+      <h2 class="section-title">我们需要什么样的导师</h2>
+      <p class="section-subtitle">了解基本资质要求，判断你是否符合条件</p>
+    </div>
+
+    <div class="requirements-grid fade-in">
+      <!-- 符合条件 -->
+      <div class="req-card req-card-yes">
+        <div class="req-card-title">
+          <div class="icon-circle icon-circle-yes">✅</div>
+          符合条件的申请者
+        </div>
+
+        <div class="req-item">
+          <span class="req-item-icon">🎓</span>
+          <div>本科及以上学历，名校背景优先（985 / 海外 QS Top 100）</div>
+        </div>
+        <div class="req-item">
+          <span class="req-item-icon">📚</span>
+          <div>熟悉至少一个课程体系：<strong>IB / AP / ALevel / IGCSE</strong></div>
+        </div>
+        <div class="req-item">
+          <span class="req-item-icon">🧑‍🏫</span>
+          <div>有辅导经验，或为相关专业在读/毕业生</div>
+        </div>
+        <div class="req-item">
+          <span class="req-item-icon">💻</span>
+          <div>具备稳定网络环境和在线授课设备（电脑+摄像头）</div>
+        </div>
+        <div class="req-item">
+          <span class="req-item-icon">🕐</span>
+          <div>每周可投入至少 5 小时授课时间</div>
+        </div>
+        <div class="req-item">
+          <span class="req-item-icon">🌐</span>
+          <div>中文/英文授课均可，双语导师更受学生欢迎</div>
+        </div>
+
+        <div class="req-highlight">
+          💡 即使你没有正式教师资格证，只要具备优秀的学科背景和辅导能力，同样可以申请。平台会综合评估材料做出判断。
+        </div>
+      </div>
+
+      <!-- 不符合条件 -->
+      <div class="req-card req-card-no">
+        <div class="req-card-title" style="color:#DC2626">
+          <div class="icon-circle icon-circle-no">❌</div>
+          暂不符合条件
+        </div>
+
+        <div class="req-item">
+          <span class="req-item-icon">🚫</span>
+          <div>无法提供有效身份证明文件（身份证/护照）</div>
+        </div>
+        <div class="req-item">
+          <span class="req-item-icon">🚫</span>
+          <div>完全没有目标课程体系的学习或辅导经验</div>
+        </div>
+        <div class="req-item">
+          <span class="req-item-icon">🚫</span>
+          <div>无稳定网络，无法保证视频课质量</div>
+        </div>
+        <div class="req-item">
+          <span class="req-item-icon">🚫</span>
+          <div>高中及以下学历（特殊技能类科目除外）</div>
+        </div>
+        <div class="req-item">
+          <span class="req-item-icon">🚫</span>
+          <div>提交虚假材料或信息不实</div>
+        </div>
+
+        <div class="req-item" style="border:none;padding-top:16px">
+          <div style="background:#FEE2E2;border-radius:12px;padding:16px;font-size:14px;color:#991B1B;line-height:1.7;width:100%">
+            ⚠️ 如提交不实信息，一经发现将永久封禁账号，并保留追究法律责任的权利。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     S4 · 入驻流程
+====================================================== -->
+<section class="section" id="steps">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">入驻流程</div>
+      <h2 class="section-title">六步完成入驻，最快 3 天开始接单</h2>
+      <p class="section-subtitle">流程清晰透明，平均每位导师从注册到上线接单只需 5 个工作日</p>
+    </div>
+
+    <div class="steps-timeline fade-in">
+      <div class="step-item step-1">
+        <div class="step-number-wrap">
+          <div class="step-number"><span class="step-icon">📱</span></div>
+        </div>
+        <div class="step-title">注册账号</div>
+        <div class="step-desc">手机号或邮箱注册，开通基础账号</div>
+        <div class="step-time">约 5 分钟</div>
+      </div>
+
+      <div class="step-item step-2">
+        <div class="step-number-wrap">
+          <div class="step-number"><span class="step-icon">📝</span></div>
+        </div>
+        <div class="step-title">填写信息</div>
+        <div class="step-desc">教育背景、辅导科目、个人简介</div>
+        <div class="step-time">约 10 分钟</div>
+      </div>
+
+      <div class="step-item step-3">
+        <div class="step-number-wrap">
+          <div class="step-number"><span class="step-icon">📄</span></div>
+        </div>
+        <div class="step-title">上传材料</div>
+        <div class="step-desc">身份证明（必须）+ 学历证书（建议）</div>
+        <div class="step-time">准备材料</div>
+      </div>
+
+      <div class="step-item step-4">
+        <div class="step-number-wrap">
+          <div class="step-number"><span class="step-icon">📤</span></div>
+        </div>
+        <div class="step-title">提交申请</div>
+        <div class="step-desc">确认材料无误后一键提交审核</div>
+        <div class="step-time">1 次点击</div>
+      </div>
+
+      <div class="step-item step-5">
+        <div class="step-number-wrap">
+          <div class="step-number"><span class="step-icon">🔍</span></div>
+        </div>
+        <div class="step-title">平台审核</div>
+        <div class="step-desc">专业团队逐一核实材料真实性</div>
+        <div class="step-time">3~5 工作日</div>
+      </div>
+
+      <div class="step-item step-6">
+        <div class="step-number-wrap">
+          <div class="step-number"><span class="step-icon">🚀</span></div>
+        </div>
+        <div class="step-title">上线接单</div>
+        <div class="step-desc">设置排班，开始接受学生预约</div>
+        <div class="step-time" style="background:var(--color-gold-light);color:#7C5A0A">立即开始！</div>
+      </div>
+    </div>
+
+    <!-- 流程补充说明 -->
+    <div style="margin-top:var(--space-12);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5);" class="fade-in">
+      <div style="padding:var(--space-5);background:var(--color-primary-light);border-radius:var(--radius-lg);border-left:4px solid var(--color-primary)">
+        <div style="font-weight:700;color:var(--color-primary);margin-bottom:var(--space-2)">📋 申请被拒怎么办？</div>
+        <div style="font-size:14px;color:var(--color-gray-600);line-height:1.7">审核未通过时，平台会告知拒绝原因。你可以补充材料后重新提交，无次数限制。</div>
+      </div>
+      <div style="padding:var(--space-5);background:#FDF6E3;border-radius:var(--radius-lg);border-left:4px solid var(--color-gold)">
+        <div style="font-weight:700;color:#7C5A0A;margin-bottom:var(--space-2)">⏱️ 可以追踪审核进度吗？</div>
+        <div style="font-size:14px;color:var(--color-gray-600);line-height:1.7">提交后可在个人中心实时查看当前审核状态和进度，无需等待邮件通知。</div>
+      </div>
+      <div style="padding:var(--space-5);background:#F0FDF4;border-radius:var(--radius-lg);border-left:4px solid var(--color-success)">
+        <div style="font-weight:700;color:#065F46;margin-bottom:var(--space-2)">🎯 通过后需要做什么？</div>
+        <div style="font-size:14px;color:var(--color-gray-600);line-height:1.7">认证通过后，设置每周排班模板，生成可预约时间段，点击"上线"即可接单。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     S5 · 材料准备
+====================================================== -->
+<section class="section section-alt" id="materials">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">材料清单</div>
+      <h2 class="section-title">需要准备哪些认证材料</h2>
+      <p class="section-subtitle">提前备好以下材料，让审核过程更顺利</p>
+    </div>
+
+    <div class="materials-grid fade-in">
+      <div class="material-card required">
+        <div class="material-card-icon">🪪</div>
+        <div class="material-card-title">
+          身份证明
+          <span class="required-tag">必须提交</span>
+        </div>
+        <div class="material-card-desc">有效身份证、护照或居留证（需清晰可见姓名、证件号、有效期）</div>
+        <div class="material-formats">
+          <span class="format-chip">JPG</span>
+          <span class="format-chip">PNG</span>
+          <span class="format-chip">PDF</span>
+          <span class="format-chip">≤ 5MB</span>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-card-icon">🎓</div>
+        <div class="material-card-title">
+          学历/学位证书
+          <span class="optional-tag">建议提交</span>
+        </div>
+        <div class="material-card-desc">本科及以上毕业证或学位证，提升审核通过率，可展示在导师主页</div>
+        <div class="material-formats">
+          <span class="format-chip">JPG</span>
+          <span class="format-chip">PNG</span>
+          <span class="format-chip">PDF</span>
+          <span class="format-chip">≤ 5MB</span>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-card-icon">📜</div>
+        <div class="material-card-title">
+          教学资质证书
+          <span class="optional-tag">建议提交</span>
+        </div>
+        <div class="material-card-desc">IB 授权教师证、教师资格证、学科竞赛奖项等相关资质证明</div>
+        <div class="material-formats">
+          <span class="format-chip">JPG</span>
+          <span class="format-chip">PNG</span>
+          <span class="format-chip">PDF</span>
+          <span class="format-chip">≤ 5MB</span>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-card-icon">🗣️</div>
+        <div class="material-card-title">
+          语言能力证书
+          <span class="optional-tag">建议提交</span>
+        </div>
+        <div class="material-card-desc">托福/雅思/SAT/GRE 或其他语言能力证明，提升英语辅导竞争力</div>
+        <div class="material-formats">
+          <span class="format-chip">JPG</span>
+          <span class="format-chip">PNG</span>
+          <span class="format-chip">PDF</span>
+          <span class="format-chip">≤ 5MB</span>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-card-icon">🏆</div>
+        <div class="material-card-title">
+          专业/技能证书
+          <span class="optional-tag">可选提交</span>
+        </div>
+        <div class="material-card-desc">行业认证、专业技能证书，展示特定领域专业度（如 CFA、CS 认证等）</div>
+        <div class="material-formats">
+          <span class="format-chip">JPG</span>
+          <span class="format-chip">PNG</span>
+          <span class="format-chip">PDF</span>
+          <span class="format-chip">≤ 5MB</span>
+        </div>
+      </div>
+
+      <div class="material-card">
+        <div class="material-card-icon">📁</div>
+        <div class="material-card-title">
+          其他辅助材料
+          <span class="optional-tag">可选提交</span>
+        </div>
+        <div class="material-card-desc">学生评价截图、辅导案例说明、个人作品集等，帮助审核员全面了解你</div>
+        <div class="material-formats">
+          <span class="format-chip">JPG</span>
+          <span class="format-chip">PNG</span>
+          <span class="format-chip">PDF</span>
+          <span class="format-chip">≤ 5MB</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="materials-tip fade-in">
+      <div class="materials-tip-icon">💡</div>
+      <div class="materials-tip-text">
+        <strong>提高通过率小贴士：</strong>材料越完整，审核通过率越高，且通过认证的材料可以展示在你的导师主页，让学生在预约前看到你的专业背景，显著提升预约转化率。每种材料最多可上传 3 份，支持随时增补材料后重新提交申请。
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     S6 · 收益福利
+====================================================== -->
+<section class="section section-dark" id="benefits">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">收益与权益</div>
+      <h2 class="section-title">加入的理由，不止收入</h2>
+      <p class="section-subtitle">我们为认证导师提供全方位的支持与保障</p>
+    </div>
+
+    <div class="benefits-grid fade-in">
+      <div class="benefit-card">
+        <div class="benefit-icon-wrap" style="background:rgba(212,168,71,0.15)">💰</div>
+        <div class="benefit-card-title">灵活自主定价</div>
+        <div class="benefit-card-desc">完全由你设置每课时的收费标准，平台不干预。根据你的资历和市场反馈动态调整。</div>
+        <div class="benefit-highlight">自主定价</div>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon-wrap" style="background:rgba(18,183,106,0.15)">⏰</div>
+        <div class="benefit-card-title">自由排班时间</div>
+        <div class="benefit-card-desc">设置每周排班模板，学生只能在你开放的时段内预约，完全不影响你的主业安排。</div>
+        <div class="benefit-highlight">随时掌控</div>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon-wrap" style="background:rgba(35,85,160,0.3)">📊</div>
+        <div class="benefit-card-title">透明实时结算</div>
+        <div class="benefit-card-desc">课程完成后收益即时到账钱包，账单清晰透明，支持随时申请提现，无隐性扣费。</div>
+        <div class="benefit-highlight">实时到账</div>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon-wrap" style="background:rgba(212,168,71,0.15)">🏆</div>
+        <div class="benefit-card-title">官方认证背书</div>
+        <div class="benefit-card-desc">通过审核的导师将获得平台认证徽章，学生预约时优先显示认证标识，大幅提升信任度。</div>
+        <div class="benefit-highlight">认证徽章</div>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon-wrap" style="background:rgba(155,92,246,0.2)">📈</div>
+        <div class="benefit-card-title">优质导师推荐位</div>
+        <div class="benefit-card-desc">好评率高、课时完成率优秀的导师将自动进入首页推荐位，享有更多曝光机会。</div>
+        <div class="benefit-highlight">免费曝光</div>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon-wrap" style="background:rgba(232,93,38,0.2)">🛡️</div>
+        <div class="benefit-card-title">完善交易保障</div>
+        <div class="benefit-card-desc">平台担保机制保护导师权益，防范恶意取消和爽约行为，确保每节课的收益安全。</div>
+        <div class="benefit-highlight">权益保障</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     S7 · 导师证言
+====================================================== -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">真实反馈</div>
+      <h2 class="section-title">听听已入驻导师怎么说</h2>
+      <p class="section-subtitle">来自不同背景、不同科目导师的真实评价</p>
+    </div>
+
+    <div class="testimonials-grid fade-in">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote" style="margin-top:12px">
+          入驻流程非常顺畅，上传材料、提交审核，前后不到 20 分钟就完成了操作。等了 4 天就收到通过通知，比我预期快多了。现在每周接 10 节课，完全不影响本职工作。
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#1A3A6B,#2355A0)">张</div>
+          <div>
+            <div class="testimonial-name">张晓萌</div>
+            <div class="testimonial-meta">剑桥大学硕士 · IB数学&物理导师 · 入驻 8 个月</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote" style="margin-top:12px">
+          最打动我的是定价权在自己手里。其他平台会压价，这里我可以根据自己的水平和市场反馈自主调整。学生都是真实有需求的，接单体验很好，钱包提现也很方便。
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#D4A847,#C4942A)">王</div>
+          <div>
+            <div class="testimonial-name">王思颖</div>
+            <div class="testimonial-meta">LSE经济学 · ALevel经济&商业导师 · 入驻 1 年</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★☆</div>
+        <div class="testimonial-quote" style="margin-top:12px">
+          第一次申请因为材料不够完整被拒了，客服给我发了详细的补充说明，重新提交后很快就通过了。整个过程反馈及时，不会让你不知所措。ClassIn 教室集成很好用。
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#12B76A,#059669)">李</div>
+          <div>
+            <div class="testimonial-name">李明远</div>
+            <div class="testimonial-meta">北京大学化学系 · AP化学&生物导师 · 入驻 6 个月</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     S8 · FAQ
+====================================================== -->
+<section class="section section-alt" id="faq">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">常见问题</div>
+      <h2 class="section-title">还有疑问？我们来解答</h2>
+      <p class="section-subtitle">点击问题展开详细解答</p>
+    </div>
+
+    <div class="faq-list fade-in">
+      <div class="faq-item open">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          审核一般需要多长时间？
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">正常情况下，3~5 个工作日内完成审核。高峰期可能略延长至 7 个工作日。提交申请后，你可以在「个人中心 → 认证状态」页面实时跟踪审核进度，无需等待邮件或电话通知。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          被拒绝后还能重新申请吗？
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">可以，不限次数。审核拒绝后，平台会说明拒绝原因（如材料不清晰、信息不完整等）。你可以根据反馈补充或更换材料，重置申请状态后重新提交。审核结果与上次独立计算。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          必须要有教师资格证吗？
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">不是强制要求。平台会综合评估你的学历背景、专业能力和相关经历。许多优秀导师是在读研究生或工作后从事国际课程辅导的专业人士，并没有正式教师资格证。有相关资质当然有助于通过，但不是唯一标准。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          可以同时辅导多个课程体系和科目吗？
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">可以。申请时你可以选择多个课程体系（如 IB + AP）和多个科目（如数学 + 物理）。通过认证后，学生可以按照你选择的科目维度搜索并预约你。建议只填写自己真正擅长的科目，以保证教学质量和学生满意度。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          学生预约后如何上课？需要额外下载软件吗？
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">平台已集成 ClassIn 在线教室，预约确认后，你和学生都可以直接在平台内进入教室上课。学生和导师都需要安装 ClassIn 客户端（免费），支持 Windows/Mac/iOS/Android。课前平台会发送提醒通知。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          收费标准由谁决定？平台会抽成吗？
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">课时费完全由导师自主设置，平台不干预定价策略。平台按比例收取服务费（具体费率在导师入驻协议中明确说明），扣除后净收益实时到账你的钱包，账单透明可查，随时可发起提现。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          如果学生临时取消预约，我的收益有保障吗？
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">有保障。平台设有取消政策：学生在课前一定时间内取消，导师可获得全额或部分补偿。具体规则请参阅「平台服务协议 - 取消与退款条款」。我们致力于保护导师的时间价值，防止恶意爽约。</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          我在海外，也可以申请入驻吗？
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">可以。许多优秀的导师本身就在海外求学或工作，具有国际课程的第一手经验。海外导师申请时，身份证明可使用护照，学历证书请提交正式证书或官方认证的翻译件。时区差异可以通过灵活排班来协调。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     S9 · 最终 CTA
+====================================================== -->
+<section class="final-cta" id="cta">
+  <div class="container">
+    <div class="final-cta-inner fade-in">
+      <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 18px;background:rgba(212,168,71,0.15);border:1px solid rgba(212,168,71,0.3);border-radius:99px;color:var(--color-gold);font-size:14px;font-weight:600;margin-bottom:24px">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--color-gold);animation:pulse 2s infinite"></span>
+        限时：前 100 名导师享免服务费优惠
+      </div>
+      <div class="final-cta-title">
+        准备好开启你的<br>
+        专业导师之路了吗？
+      </div>
+      <p class="final-cta-sub">
+        只需 15~20 分钟完成申请，3~5 天完成审核<br>
+        认证通过后即可接单，立即开始实现你的专业价值
+      </p>
+      <div class="final-cta-actions">
+        <a href="#" class="btn btn-gold btn-lg">立即申请入驻 →</a>
+        <a href="#" class="btn btn-outline btn-lg">联系我们咨询</a>
+      </div>
+      <div class="final-cta-note">
+        已有账号？<a href="#" style="color:rgba(255,255,255,0.7);text-decoration:underline">直接登录继续申请</a> &nbsp;·&nbsp;
+        申请遇到问题？<a href="#" style="color:rgba(255,255,255,0.7);text-decoration:underline">查看帮助文档</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     Footer
+====================================================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="logo-mark" style="width:28px;height:28px;font-size:14px">U</div>
+        <span style="color:rgba(255,255,255,0.6);font-size:14px">UB Platform · 国际课程辅导平台</span>
+      </div>
+      <div class="footer-copy">© 2025 UB Platform. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#">服务协议</a>
+        <a href="#">隐私政策</a>
+        <a href="#">联系我们</a>
+        <a href="#">帮助中心</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // FAQ 手风琴交互
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // 滚动动画
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // 子元素依次动画
+        const children = entry.target.querySelectorAll('.step-item, .material-card, .benefit-card, .testimonial-card, .req-item');
+        children.forEach((el, i) => {
+          setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          }, i * 80);
+        });
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // 步骤卡片初始样式
+  document.querySelectorAll('.step-item, .material-card, .benefit-card, .testimonial-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  });
+
+  // 导航平滑高亮
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.navbar-links a');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.style.color = link.getAttribute('href') === '#' + entry.target.id
+            ? 'white' : 'rgba(255,255,255,0.75)';
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(s => navObserver.observe(s));
+</script>
+
+</body>
+</html>

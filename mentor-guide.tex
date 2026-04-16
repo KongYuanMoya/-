@@ -1,0 +1,700 @@
+%% ============================================================
+%%  耀考教育 · 导师入驻指南
+%%  编译命令: xelatex mentor-guide.tex (编译两次)
+%% ============================================================
+\documentclass[a4paper,10pt]{article}
+
+%% ── 基础包 ──────────────────────────────────────────────────
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{pgffor}
+\usepackage{mdframed}
+\usepackage{parskip}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{pifont}            % 提供 \ding 符号（勾叉）
+\usepackage{textcomp}          % 提供 \textyuan, \textyen 等货币符号
+
+\usetikzlibrary{calc,positioning,shapes.geometric}
+\tcbuselibrary{skins,breakable,most}
+
+%% ── 字体设置 ────────────────────────────────────────────────
+\setmainfont{Helvetica Neue}[
+  BoldFont = Helvetica Neue Bold,
+  ItalicFont = Helvetica Neue Italic
+]
+\setCJKmainfont{PingFang SC}[
+  BoldFont = PingFang SC Semibold,
+  ItalicFont = PingFang SC Light
+]
+\setCJKsansfont{Heiti SC}[
+  BoldFont = Heiti SC Medium
+]
+\setCJKmonofont{PingFang SC}
+
+%% ── 页面布局 ────────────────────────────────────────────────
+\geometry{
+  a4paper,
+  top=25mm, bottom=25mm,
+  left=22mm, right=22mm,
+  headheight=14pt,
+  headsep=10pt
+}
+
+%% ── 品牌色彩（基于 logo 的青绿色系统）──────────────────────
+\definecolor{BrandBlue}{HTML}{184E4A}
+\definecolor{BrandBlueMid}{HTML}{2F7B74}
+\definecolor{BrandBlueLt}{HTML}{E8F3F1}
+\definecolor{BrandGold}{HTML}{5FA59B}
+\definecolor{BrandGoldLt}{HTML}{F1F8F6}
+\definecolor{BrandOrange}{HTML}{2A6963}
+\definecolor{GrayDark}{HTML}{1E3734}
+\definecolor{GrayMid}{HTML}{5B6F6C}
+\definecolor{GrayLight}{HTML}{F3F7F6}
+\definecolor{GrayBorder}{HTML}{D8E5E1}
+\definecolor{GreenOk}{HTML}{3A8B80}
+\definecolor{GreenLt}{HTML}{E6F3F0}
+\definecolor{RedErr}{HTML}{215D57}
+\definecolor{RedLt}{HTML}{E4F1EE}
+\definecolor{WarningYellow}{HTML}{4F9287}
+\definecolor{WarningLt}{HTML}{EDF7F4}
+
+%% ── 超链接样式 ──────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=BrandBlue,
+  urlcolor=BrandBlueMid,
+  pdftitle={耀考教育 导师入驻指南},
+  pdfauthor={耀考教育},
+  pdfsubject={导师招募宣传册}
+}
+
+%% ── 页眉页脚 ────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{GrayMid}\textbf{耀考教育} $\cdot$ 导师入驻指南}
+\fancyhead[R]{\small\color{GrayMid}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\color{GrayBorder}\hrule width\headwidth height\headrulewidth}
+
+%% ── 标题样式 ────────────────────────────────────────────────
+\titleformat{\section}
+  {\color{BrandBlue}\Large\bfseries\CJKfamily{zhsf}}
+  {}
+  {0pt}
+  {\colorbox{BrandBlue}{\color{white}\hspace{6pt}0\thesection\hspace{6pt}}\hspace{8pt}}
+  []
+
+\titleformat{\subsection}
+  {\color{BrandBlue}\large\bfseries}
+  {\thesubsection\hspace{8pt}}
+  {0pt}
+  {}
+  [\vspace{-4pt}\color{BrandGold}\rule{\linewidth}{1.5pt}]
+
+\titleformat{\subsubsection}
+  {\color{GrayDark}\normalsize\bfseries}
+  {\thesubsubsection\hspace{6pt}}
+  {0pt}
+  {}
+
+\titlespacing{\section}{0pt}{16pt}{10pt}
+\titlespacing{\subsection}{0pt}{12pt}{6pt}
+\titlespacing{\subsubsection}{0pt}{8pt}{4pt}
+
+%% ── 列表样式 ────────────────────────────────────────────────
+\setlist[itemize,1]{
+  leftmargin=1.5em, itemsep=3pt, parsep=0pt,
+  label={\color{BrandBlue}$\bullet$}
+}
+\setlist[itemize,2]{
+  leftmargin=1.5em, itemsep=2pt,
+  label={\color{BrandGold}$\circ$}
+}
+\setlist[enumerate,1]{
+  leftmargin=1.5em, itemsep=4pt,
+  label={\color{BrandBlue}\textbf{\arabic*.}}
+}
+
+%% ── 自定义盒子 ──────────────────────────────────────────────
+\newtcolorbox{infobox}[1][]{
+  enhanced, colback=BrandBlueLt, colframe=BrandBlue,
+  leftrule=4pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+  boxsep=0pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  arc=4pt, #1
+}
+\newtcolorbox{warnbox}[1][]{
+  enhanced, colback=WarningLt, colframe=WarningYellow,
+  leftrule=4pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+  boxsep=0pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  arc=4pt, #1
+}
+\newtcolorbox{errorbox}[1][]{
+  enhanced, colback=RedLt, colframe=RedErr,
+  leftrule=4pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+  boxsep=0pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  arc=4pt, #1
+}
+\newtcolorbox{successbox}[1][]{
+  enhanced, colback=GreenLt, colframe=GreenOk,
+  leftrule=4pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+  boxsep=0pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  arc=4pt, #1
+}
+\newtcolorbox{goldbox}[1][]{
+  enhanced, colback=BrandGoldLt, colframe=BrandGold,
+  boxrule=1pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  arc=6pt, #1
+}
+
+%% ── 表格列类型 ──────────────────────────────────────────────
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+%% ── 辅助命令 ────────────────────────────────────────────────
+\newcommand{\brand}[1]{\textcolor{BrandBlue}{\textbf{#1}}}
+\newcommand{\gold}[1]{\textcolor{BrandGold}{\textbf{#1}}}
+\newcommand{\req}{\colorbox{RedLt}{\color{RedErr}\tiny\textbf{\ 必须\ }}}
+\newcommand{\opt}{\colorbox{BrandBlueLt}{\color{BrandBlue}\tiny\textbf{\ 建议\ }}}
+\newcommand{\optc}{\colorbox{GrayLight}{\color{GrayMid}\tiny\textbf{\ 可选\ }}}
+\newcommand{\checkyes}{\textcolor{GreenOk}{\ding{51}}}   % ✓
+\newcommand{\checkno}{\textcolor{RedErr}{\ding{55}}}      % ✗
+\newcommand{\arrowright}{$\rightarrow$}
+
+%% ── 文档开始 ────────────────────────────────────────────────
+\begin{document}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+%% ============================================================
+%%  封面页
+%% ============================================================
+\thispagestyle{empty}
+
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[BrandBlue] (current page.north west) rectangle (current page.south east);
+  \fill[BrandGold] ([yshift=-4mm]current page.north west)
+    rectangle ([yshift=-8mm]current page.north east);
+  \fill[BrandBlueMid!60] (current page.south west)
+    rectangle ([yshift=55mm]current page.south east);
+  \fill[BrandGold!20, opacity=0.4]
+    ([xshift=100mm, yshift=-30mm]current page.north west)
+    -- ([xshift=180mm, yshift=-30mm]current page.north west)
+    -- ([xshift=180mm, yshift=-80mm]current page.north west)
+    -- cycle;
+\end{tikzpicture}
+
+\vspace*{24mm}
+
+\begin{center}
+  \includegraphics[width=6cm]{logo-title.png}
+
+  \vspace{6mm}
+  {\color{white}\large\textsf{国际课程辅导平台}}
+
+  \vspace{14mm}
+  {\color{white}\fontsize{38}{46}\selectfont\bfseries 导师入驻指南}
+  \vspace{4mm}
+
+  {\color{BrandGold}\fontsize{15}{22}\selectfont\bfseries 国际课程辅导平台 $\cdot$ 正式招募}
+
+  \vspace{10mm}
+
+  \begin{tcolorbox}[
+    enhanced, colback=BrandGold!10, colframe=BrandGold,
+    boxrule=1pt, arc=6pt, width=0.65\textwidth,
+    left=12pt, right=12pt, top=8pt, bottom=8pt
+  ]
+    \centering
+    {\color{BrandGold}\large\textbf{IB} \quad \textbf{AP} \quad \textbf{A-Level} \quad \textbf{IGCSE}}\\[4pt]
+    {\color{GrayDark}\small 四大国际课程体系 · 名校导师严选 · 首次不满意退款}
+  \end{tcolorbox}
+
+  \vspace{22mm}
+
+  \begin{tabular}{C{3.8cm} C{3.8cm} C{3.8cm}}
+    \color{BrandGold}\fontsize{28}{34}\selectfont\bfseries 4大
+    & \color{BrandGold}\fontsize{28}{34}\selectfont\bfseries 1对1
+    & \color{BrandGold}\fontsize{28}{34}\selectfont\bfseries 24h \\[2pt]
+    \color{white}\small 国际课程体系全覆盖
+    & \color{white}\small 专属辅导模式
+    & \color{white}\small 顾问响应时效 \\
+  \end{tabular}
+\end{center}
+
+\vfill
+
+\newpage
+
+%% ============================================================
+%%  目录
+%% ============================================================
+\thispagestyle{fancy}
+
+{\color{BrandBlue}\Large\bfseries 目\quad 录}
+\vspace{6pt}
+{\color{GrayBorder}\hrule height 2pt}
+\vspace{4pt}
+
+\tableofcontents
+
+\newpage
+
+%% ============================================================
+%%  正文
+%% ============================================================
+
+%% ── 第 1 节：平台简介 ───────────────────────────────────────
+\section{平台简介}
+
+\begin{goldbox}
+\textbf{耀考教育} 是专注于国际课程辅导的在线教育平台，连接海内外名校导师与有志于 IB、AP、A-Level、IGCSE 课程的学生。平台严格筛选来自牛津、剑桥、LSE、港大等知名高校的优质导师，采用 \textbf{ClassIn} 专业在线教室提供高清 1 对 1 互动辅导，课后支持免费回看，确保每位学生获得高质量学术支持。
+\end{goldbox}
+
+\subsection{我们的使命}
+
+帮助有学科专长的优秀教育者，以专业、灵活的方式为学生提供高价值辅导服务，同时实现自身的知识变现与职业成长。
+
+\subsection{平台核心特色}
+
+\begin{itemize}
+  \item \textbf{严选导师}：全部导师经过严格背景审核，来自牛津、剑桥、LSE、港大等国内外知名高校
+  \item \textbf{灵活预约}：7$\times$24 小时在线预约，自由选择上课时间，课前 24 小时可免费改期
+  \item \textbf{专业教室}：采用 ClassIn 在线教室，高清视频 + 互动白板 + 屏幕共享，课后可免费回看
+  \item \textbf{品质保障}：首次试听不满意全额退款，无忧学习保障
+\end{itemize}
+
+\subsection{平台覆盖科目}
+
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{
+  >{\centering\arraybackslash}p{2.2cm}
+  X
+}
+\toprule
+\cellcolor{BrandBlue}{\color{white}\bfseries 课程体系} & \textbf{主要辅导科目} \\
+\midrule
+\cellcolor{BrandBlue}{\color{white}\bfseries IB} & 数学 AA/AI、物理、化学、生物、经济、历史、英语文学、TOK \\
+\rowcolor{GrayLight}\cellcolor{BrandBlue}{\color{white}\bfseries AP} & 微积分 AB/BC、统计学、物理 C、化学、计算机科学、经济学 \\
+\cellcolor{BrandBlue}{\color{white}\bfseries A-Level} & 数学、延伸数学、物理、化学、生物、经济学、商业学 \\
+\rowcolor{GrayLight}\cellcolor{BrandBlue}{\color{white}\bfseries IGCSE} & 数学、物理、化学、生物、英语、历史、计算机科学 \\
+\cellcolor{BrandBlue}{\color{white}\bfseries IELTS} & 听力、阅读、写作、口语全项辅导 \\
+\bottomrule
+\end{tabularx}
+
+\bigskip
+
+%% ── 第 2 节：申请条件 ───────────────────────────────────────
+\section{申请条件}
+
+\subsection{符合条件的申请者}
+
+\begin{infobox}
+平台严选每一位入驻导师以保障学生获得高质量辅导。如果你是海内外名校的在读学生或毕业生，且具有扎实的学科知识和良好的教学能力，欢迎申请。
+\end{infobox}
+
+以下条件符合越多，审核通过概率越高：
+
+\vspace{4pt}
+\begin{tcolorbox}[
+  enhanced, colback=GreenLt, colframe=GreenOk,
+  boxrule=1pt, arc=6pt,
+  left=12pt, right=12pt, top=10pt, bottom=10pt
+]
+\begin{itemize}[leftmargin=1.2em, itemsep=5pt]
+  \item[\checkyes]\ \textbf{学历要求}：本科及以上学历，名校背景（国内 985/211、海外 QS Top 100）优先
+  \item[\checkyes]\ \textbf{课程熟悉度}：熟悉至少一个课程体系（IB / AP / ALevel / IGCSE）
+  \item[\checkyes]\ \textbf{辅导经验}：有过家教、助教或相关辅导经历；或为相关专业在读/应届毕业生
+  \item[\checkyes]\ \textbf{授课设备}：具备稳定网络（建议带宽 $\geq$ 20Mbps）、电脑及摄像头
+  \item[\checkyes]\ \textbf{时间投入}：每周可投入至少 \textbf{10 小时}以上的稳定授课时间
+  \item[\checkyes]\ \textbf{语言能力}：中文授课或英文授课均可；双语导师享有更高曝光优先权
+\end{itemize}
+\end{tcolorbox}
+
+\begin{infobox}
+\textbf{注意：}综合评估学历背景、专业能力与辅导经历，符合条件即可申请。
+\end{infobox}
+
+\subsection{不符合条件的情形}
+
+\begin{tcolorbox}[
+  enhanced, colback=RedLt, colframe=RedErr,
+  boxrule=1pt, arc=6pt,
+  left=12pt, right=12pt, top=10pt, bottom=10pt
+]
+\begin{itemize}[leftmargin=1.2em, itemsep=5pt]
+  \item[\checkno]\ 无法提供\textbf{有效身份证明}文件（身份证、护照或居留证）
+  \item[\checkno]\ 完全没有目标课程体系的学习或辅导经验
+  \item[\checkno]\ 网络条件不稳定，无法保证视频课质量
+  \item[\checkno]\ 最终学历为高中及以下（特殊技能类科目须另行沟通）
+  \item[\checkno]\ 提交虚假信息或伪造材料
+\end{itemize}
+\end{tcolorbox}
+
+\begin{warnbox}
+\textbf{重要警告：}一旦发现虚假信息，账号将被\textbf{永久封禁}，情节严重者平台保留追究法律责任的权利。
+\end{warnbox}
+
+\bigskip
+
+%% ── 第 3 节：入驻流程 ───────────────────────────────────────
+\section{入驻流程}
+
+完成全部流程仅需 \textbf{5 个步骤}，审核通过后即可上线开课。
+
+\begin{center}
+\begin{tikzpicture}[
+  box/.style={
+    draw=BrandBlueMid, fill=BrandBlueLt, rounded corners=5pt,
+    minimum width=2.8cm, minimum height=1cm,
+    text centered, font=\small\bfseries\color{BrandBlue}, inner sep=4pt
+  },
+  lastbox/.style={
+    draw=BrandGold, fill=BrandGoldLt, rounded corners=5pt,
+    minimum width=2.8cm, minimum height=1cm,
+    text centered, font=\small\bfseries\color{BrandGold}, inner sep=4pt
+  },
+  numcircle/.style={
+    circle, draw=BrandBlue, fill=BrandBlue,
+    text=white, font=\footnotesize\bfseries,
+    minimum size=5mm, inner sep=0pt
+  },
+  arr/.style={->, thick, color=BrandGold, line width=1.5pt}
+]
+  \node[box] (b1) at (0,0)    {注册账号};
+  \node[box] (b2) at (3.2,0)  {上传材料};
+  \node[box] (b3) at (6.4,0)  {提交审核};
+  \node[box] (b4) at (9.6,0)  {审核通过};
+  \node[lastbox] (b5) at (12.8,0) {开始授课};
+
+  \draw[arr] (b1.east) -- (b2.west);
+  \draw[arr] (b2.east) -- (b3.west);
+  \draw[arr] (b3.east) -- (b4.west);
+  \draw[arr] (b4.east) -- (b5.west);
+
+  \node[numcircle] at (b1.north) {1};
+  \node[numcircle] at (b2.north) {2};
+  \node[numcircle] at (b3.north) {3};
+  \node[numcircle] at (b4.north) {4};
+  \node[numcircle, draw=BrandGold, fill=BrandGold, text=GrayDark] at (b5.north) {5};
+
+  \node[font=\tiny\color{GrayMid}] at ($(b1.south)+(0,-3pt)$) {填写基本信息};
+  \node[font=\tiny\color{GrayMid}] at ($(b2.south)+(0,-3pt)$) {上传资质文件};
+  \node[font=\tiny\color{GrayMid}] at ($(b3.south)+(0,-3pt)$) {1 次点击};
+  \node[font=\tiny\color{GrayMid}] at ($(b4.south)+(0,-3pt)$) {3 个工作日内};
+  \node[font=\tiny\color{BrandGold}] at ($(b5.south)+(0,-3pt)$) {立即开始！};
+\end{tikzpicture}
+\end{center}
+
+\vspace{8pt}
+
+\subsubsection{步骤一：注册账号}
+
+访问耀考教育官网（\href{https://www.yaokaojiaoyu.com}{www.yaokaojiaoyu.com}），选择任一方式注册：
+\begin{itemize}
+  \item \textbf{手机号注册}：手机号 \arrowright\ 短信验证码 \arrowright\ 设置密码
+  \item \textbf{邮箱注册}：邮箱地址 \arrowright\ 邮件验证码 \arrowright\ 完成验证
+\end{itemize}
+
+在平台注册后，填写真实姓名、教育背景及辅导科目。注册后即可提交导师申请，审核通过后即可开课。
+
+\subsubsection{步骤二：上传认证材料}
+
+详细材料清单请参阅第~\ref{sec:materials}~节。核心要求：
+\begin{itemize}
+  \item \textbf{必须提交}：身份证明（护照或身份证正反面）
+  \item \textbf{强烈推荐}：本科/硕士/博士毕业证或在读证明
+  \item 文件清晰，文字可辨，四角完整；格式：JPG / PNG / PDF
+\end{itemize}
+
+\subsubsection{步骤三：提交审核（1 次点击）}
+
+确认材料无误后，点击「提交审核」。提交后：
+\begin{itemize}
+  \item 在「个人中心 \arrowright\ 认证状态」可实时追踪审核进度
+  \item 平台将在 \textbf{3 个工作日内}完成审核
+\end{itemize}
+
+\subsubsection{步骤四：审核通过}
+
+通过后账号将获得「\textbf{耀考认证导师}」标识，可自主开启接单状态。
+
+\begin{center}
+\begin{tabular}{
+  >{\columncolor{BrandBlueLt}\centering\arraybackslash}p{3.2cm}
+  >{\columncolor{BrandBlueLt}\centering\arraybackslash}p{3.2cm}
+  >{\columncolor{BrandBlueLt}\centering\arraybackslash}p{3.2cm}
+  >{\columncolor{BrandBlueLt}\centering\arraybackslash}p{3.2cm}
+}
+\color{BrandBlue}\textbf{教育背景} &
+\color{BrandBlue}\textbf{教学经验} &
+\color{BrandBlue}\textbf{课程熟悉度} &
+\color{BrandBlue}\textbf{资质材料} \\
+\end{tabular}
+\end{center}
+
+\begin{infobox}
+\textbf{录取标准严格：}平台导师录取通过率不足 \textbf{20\%}，严选每一位入驻导师，以保障学生获得高质量辅导。
+\end{infobox}
+
+\subsubsection{步骤五：开始授课}
+
+认证通过后按以下步骤正式开课：
+\begin{enumerate}
+  \item 设置\textbf{课时价格}与\textbf{可用时间段}
+  \item 等待学生预约，系统自动确认
+  \item 准时进入 ClassIn 在线教室开始授课
+  \item 课程完成后收益\textbf{自动入账}，按平台规则周期提现
+\end{enumerate}
+
+\begin{successbox}
+\textbf{恭喜！}完成以上步骤后，你正式成为耀考认证导师，可以开始接单并获得收益。
+\end{successbox}
+
+\bigskip
+
+%% ── 第 4 节：材料清单 ───────────────────────────────────────
+\section{认证材料清单}
+\label{sec:materials}
+
+\subsection{材料总览}
+
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\textwidth}{
+  C{0.5cm}
+  L{3cm}
+  C{1.6cm}
+  C{2.6cm}
+  X
+}
+\toprule
+\textbf{\#} & \textbf{材料名称} & \textbf{必要性} & \textbf{格式要求} & \textbf{说明} \\
+\midrule
+\rowcolor{RedLt}
+1 & 有效身份证明 & \req & JPG/PNG/PDF, $\leq$5MB & 身份证/护照/居留证，须清晰可见姓名与证件号 \\
+\rowcolor{BrandBlueLt}
+2 & 学历/学位证书 & \opt & JPG/PNG/PDF, $\leq$5MB & 本科及以上；可展示于导师主页 \\
+\rowcolor{GrayLight}
+3 & 教学资质证书 & \optc & JPG/PNG/PDF, $\leq$5MB & IB授权证、教师资格证、竞赛获奖等 \\
+\rowcolor{BrandBlueLt}
+4 & 语言能力证书 & \optc & JPG/PNG/PDF, $\leq$5MB & 托福/雅思/SAT/GRE 等 \\
+\rowcolor{GrayLight}
+5 & 专业/技能证书 & \optc & JPG/PNG/PDF, $\leq$5MB & 行业认证（如 CFA、CPA 等） \\
+\rowcolor{BrandBlueLt}
+6 & 其他辅助材料 & \optc & JPG/PNG/PDF, $\leq$5MB & 学生评价截图、辅导案例、作品集等 \\
+\bottomrule
+\end{tabularx}
+
+\subsection{提高通过率的建议}
+
+\begin{goldbox}
+\textbf{经验提示：}材料越完整，审核通过率越高。通过认证的材料可\textbf{公开展示}在导师主页，让学生提前了解你的专业背景，显著提升预约转化率。
+
+每种类型材料最多可上传 \textbf{3 份}，申请被拒后可随时修改并重新提交。
+\end{goldbox}
+
+\subsection{文件质量要求}
+
+\begin{itemize}
+  \item \textbf{清晰度}：文字需清晰可读，不接受模糊、遮挡或反光照片
+  \item \textbf{完整性}：证件四角不能被截断，重要信息需完整显示
+  \item \textbf{真实性}：严禁 PS 修改或提交他人证件
+  \item \textbf{时效性}：身份证件须在有效期内
+\end{itemize}
+
+\bigskip
+
+%% ── 第 5 节：收益与权益 ─────────────────────────────────────
+\section{收益与权益}
+
+\subsection{收入说明}
+
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{\textwidth}{
+  >{\centering\arraybackslash}p{2.8cm}
+  X
+}
+\midrule
+\cellcolor{BrandBlue}{\color{white}\bfseries 灵活定价} & 导师\textbf{自主设置}课时费，平台不干预定价策略 \\
+\rowcolor{GrayLight}\cellcolor{BrandBlue}{\color{white}\bfseries 实时结算} & 学生评价完成后收益到账钱包，具体以平台结算规则为准 \\
+\cellcolor{BrandBlue}{\color{white}\bfseries 透明账单} & 每笔订单收支清晰可查，平台按比例收取服务费，无隐性扣费 \\
+\rowcolor{GrayLight}\cellcolor{BrandBlue}{\color{white}\bfseries 周期提现} & 钱包余额每月 1 日 / 15 日可申请提现，到账时间以平台结算安排为准 \\
+\midrule
+\end{tabularx}
+
+\subsection{平台权益}
+
+\begin{itemize}
+  \item \textbf{官方认证标识}：通过审核后获「耀考认证导师」标识，学生搜索时优先显示
+  \item \textbf{首页推荐曝光}：评分高、口碑好的导师自动进入首页推荐位，持续获客
+  \item \textbf{优秀导师奖励计划}：收入随评分持续提升，平台专项奖励优质导师
+  \item \textbf{专业教学支持}：教学材料支持与客服团队全程跟进，帮助导师快速成长
+  \item \textbf{交易保障机制}：学生恶意取消时，导师按规则获得全额或部分补偿
+  \item \textbf{ClassIn 专业教室}：直接使用平台集成的 ClassIn 在线教室，无需额外付费
+  \item \textbf{灵活排班自由}：完全按自己时间开放预约，7$\times$24 随时安排，不影响主业
+\end{itemize}
+
+\subsection{收入参考}
+
+\begin{goldbox}
+耀考教育提供\textbf{有竞争力的课时费}。导师享有完全定价自主权，可根据自身专业背景、市场情况随时调整收费标准。学生评价完成后收益到账钱包，支持按平台规则周期提现。
+
+优秀导师还可参与\textbf{奖励计划}：收入随评分和口碑持续提升，评分优秀的导师将优先获得平台流量推荐。
+\end{goldbox}
+
+\bigskip
+
+%% ── 第 6 节：常见问题 ───────────────────────────────────────
+\section{常见问题 FAQ}
+
+\setcounter{subsection}{0}
+\renewcommand{\thesubsection}{Q\arabic{subsection}}
+
+\subsection{审核一般需要多长时间？}
+
+正常情况下 \textbf{3 个工作日}内完成审核，高峰期可能略有延迟。提交后可在「个人中心 \arrowright\ 认证状态」实时跟踪进度。
+
+\subsection{被拒绝后还能重新申请吗？}
+
+\textbf{可以，不限次数。}审核拒绝后平台会说明具体原因，补充材料后重新提交，审核结果与上次独立计算。
+
+\subsection{必须要有教师资格证吗？}
+
+\textbf{不是强制要求。}平台综合评估学历背景、专业能力与辅导经历，有教学资质证书有助于通过，但不是唯一标准。
+
+\subsection{可以同时辅导多个科目吗？}
+
+\textbf{可以。}申请时可选择多个课程体系和科目，建议只填写真正擅长的科目，以保证教学质量。
+
+\subsection{学生预约后如何上课？}
+
+平台集成了 \textbf{ClassIn} 在线教室，预约确认后可直接在平台内进入教室上课，需安装 ClassIn 客户端（免费，支持 Windows/Mac/iOS/Android）。
+
+\subsection{平台会抽成吗？收费标准是什么？}
+
+平台按比例收取\textbf{服务费}（具体费率在入驻协议中明确说明），扣除后净收益实时入账，账单透明可查。
+
+\subsection{学生取消预约，我的收益有保障吗？}
+
+\textbf{有保障。}课前约定时间内取消，导师可获全额或部分补偿，具体规则参阅平台服务协议取消条款。
+
+\subsection{海外导师可以申请吗？}
+
+\textbf{可以。}身份证明使用护照，学历证书附官方认证翻译件即可，时区差异可通过灵活排班协调。
+
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+\bigskip
+
+%% ── 第 7 节：注意事项 ───────────────────────────────────────
+\section{重要注意事项}
+
+\subsection{材料真实性}
+
+\begin{warnbox}
+提交的所有材料必须\textbf{真实有效}。平台将对关键信息进行核查，包括学历信息院校核实、证件有效性验证等。
+\end{warnbox}
+
+\subsection{个人信息保护}
+
+平台严格遵守《个人信息保护法》，对提交的身份证件、学历证书等敏感信息进行\textbf{加密存储}，仅用于资质审核，不向第三方披露。
+
+\subsection{平台行为规范}
+
+成为认证导师后，须遵守以下规范：
+
+\begin{enumerate}
+  \item \textbf{准时上课}：提前 5 分钟进入教室，不得无故迟到或缺课
+  \item \textbf{教学质量}：保持专业授课态度，不得恶意刷单
+  \item \textbf{不得私下联系}：禁止绕过平台与学生进行私下交易
+  \item \textbf{内容合规}：授课内容须合法合规，禁止传播违规内容
+\end{enumerate}
+
+\begin{errorbox}
+违反平台行为规范的导师，将依情节轻重受到警告、限流、暂停或永久封禁处理。
+\end{errorbox}
+
+\bigskip
+
+%% ── 第 8 节：联系我们 ───────────────────────────────────────
+\section{联系我们}
+
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{0.85\textwidth}{
+  >{\bfseries\color{BrandBlue}}L{3cm}
+  X
+}
+\toprule
+联系方式 & 详情 \\
+\midrule
+\rowcolor{BrandBlueLt} 官方网站 & \href{https://www.yaokaojiaoyu.com}{www.yaokaojiaoyu.com} \\
+微信客服 & \textbf{UBxiaozhushou}（国内客服，7$\times$24 小时在线） \\
+\rowcolor{BrandBlueLt} 导师招募邮箱 & \href{mailto:support@yaokaojiaoyu.com}{support@yaokaojiaoyu.com} \\
+工作时间 & 周一至周日 9:00--21:00（北京时间） \\
+\bottomrule
+\end{tabularx}
+
+\vspace{16pt}
+
+\begin{tcolorbox}[
+  enhanced, colback=BrandBlue, colframe=BrandBlue,
+  arc=10pt, left=20pt, right=20pt, top=16pt, bottom=16pt,
+  width=\textwidth
+]
+\noindent
+\begin{minipage}[c]{0.63\textwidth}
+  {\color{BrandGold}\Large\bfseries 立即申请成为耀考认证导师}\\[8pt]
+  {\color{white!80}15 分钟完成申请 $\cdot$ 3$\sim$5 天完成审核\\[4pt]
+  认证通过后即可上线接单，实现专业价值变现}\\[14pt]
+  \begin{tcolorbox}[
+    enhanced, colback=BrandGold, colframe=BrandGold,
+    arc=6pt, width=6.6cm, nobeforeafter,
+    left=8pt, right=8pt, top=8pt, bottom=8pt
+  ]
+    \centering
+    {\color{GrayDark}\bfseries\large $\Rightarrow$ 前往官网申请入驻}
+  \end{tcolorbox}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.22\textwidth}
+  \begin{tcolorbox}[
+    enhanced, colback=white, colframe=white,
+    boxrule=0pt, arc=10pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    width=\textwidth, nobeforeafter
+  ]
+    \centering
+    \includegraphics[width=0.96\textwidth]{活码.png}
+  \end{tcolorbox}\\[6pt]
+  \centering{\color{white!75}\small 扫码联系顾问}
+\end{minipage}
+\end{tcolorbox}
+
+\vfill
+
+\begin{center}
+  \color{GrayMid}\small
+  \rule{0.35\textwidth}{0.4pt}\quad
+  耀考教育 $\cdot$ 国际课程辅导平台
+  \quad\rule{0.35\textwidth}{0.4pt}\\[4pt]
+  本文档版权归 耀考教育 所有，未经授权不得转载 $\quad$ \copyright\ \the\year\ 耀考教育
+\end{center}
+
+\end{document}

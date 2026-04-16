@@ -1,0 +1,561 @@
+%% ============================================================
+%%  耀考教育 · 导师招募推广海报
+%%  编译命令: xelatex mentor-poster.tex (编译一次即可)
+%%  尺寸: A4 竖版，仿海报排版
+%% ============================================================
+\documentclass[a4paper,11pt]{article}
+
+%% ── 基础包 ──────────────────────────────────────────────────
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{calc}
+\usepackage{pifont}
+
+\usetikzlibrary{calc,positioning,shapes.geometric}
+\tcbuselibrary{skins,breakable,most}
+
+%% ── 字体设置 ────────────────────────────────────────────────
+\setmainfont{Helvetica Neue}[
+  BoldFont = Helvetica Neue Bold,
+  ItalicFont = Helvetica Neue Italic
+]
+\setCJKmainfont{PingFang SC}[
+  BoldFont = PingFang SC Semibold,
+  ItalicFont = PingFang SC Light
+]
+\setCJKsansfont{Heiti SC}[BoldFont = Heiti SC Medium]
+
+%% ── 页面：无边距全出血 ───────────────────────────────────────
+\geometry{
+  a4paper,
+  top=0mm, bottom=0mm,
+  left=0mm, right=0mm
+}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+%% ── 品牌色 ──────────────────────────────────────────────────
+\definecolor{BrandBlue}{HTML}{1A3A6B}
+\definecolor{BrandBlueMid}{HTML}{2355A0}
+\definecolor{BrandBlueLt}{HTML}{EBF1FA}
+\definecolor{BrandGold}{HTML}{D4A847}
+\definecolor{BrandGoldLt}{HTML}{FDF6E3}
+\definecolor{GrayDark}{HTML}{1D2939}
+\definecolor{GrayMid}{HTML}{475467}
+\definecolor{GrayLight}{HTML}{F5F6F8}
+\definecolor{GrayBorder}{HTML}{E2E6EA}
+\definecolor{GreenOk}{HTML}{12B76A}
+\definecolor{GreenLt}{HTML}{ECFDF5}
+\definecolor{AccentTeal}{HTML}{0D9488}
+
+%% ── 辅助命令 ────────────────────────────────────────────────
+\newcommand{\checkyes}{\textcolor{GreenOk}{\ding{51}}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+%% ============================================================
+\begin{document}
+
+%% ────────────────────────────────────────────────────────────
+%%  海报 1：主招募海报（核心吸引版）
+%%  目标受众：海内外名校在读/应届毕业生
+%% ────────────────────────────────────────────────────────────
+
+%% ── 全页深蓝背景 ─────────────────────────────────────────────
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[BrandBlue] (current page.north west) rectangle (current page.south east);
+  %% 金色顶边装饰
+  \fill[BrandGold]
+    ([yshift=-3mm]current page.north west)
+    rectangle ([yshift=-7mm]current page.north east);
+  %% 底部蓝色渐变块
+  \fill[BrandBlueMid!70]
+    (current page.south west)
+    rectangle ([yshift=70mm]current page.south east);
+  %% 右上角装饰三角
+  \fill[BrandGold, opacity=0.15]
+    ([xshift=-60mm]current page.north east)
+    -- (current page.north east)
+    -- ([yshift=-80mm]current page.north east)
+    -- cycle;
+  %% 左下角装饰圆弧
+  \fill[BrandGold, opacity=0.08]
+    ([xshift=0mm, yshift=0mm]current page.south west)
+    circle (50mm);
+\end{tikzpicture}
+
+\vspace*{14mm}
+
+%% ── Logo ──────────────────────────────────────────────────
+\begin{center}
+  \includegraphics[width=5.5cm]{logo-title.png}
+\end{center}
+
+\vspace{8mm}
+
+%% ── 主标题 ───────────────────────────────────────────────────
+\begin{center}
+  {\color{BrandGold}\fontsize{11}{16}\selectfont\bfseries
+    — \ 国际课程辅导平台 · 正式招募 \ —}
+
+  \vspace{6mm}
+
+  {\color{white}\fontsize{40}{52}\selectfont\bfseries\CJKfamily{zhsf}
+    导师入驻}
+
+  \vspace{2mm}
+
+  {\color{BrandGold}\fontsize{17}{24}\selectfont\bfseries
+    用你的名校学历，实现专业价值变现}
+\end{center}
+
+\vspace{10mm}
+
+%% ── 三大数字亮点 ──────────────────────────────────────────────
+\begin{center}
+\begin{tcolorbox}[
+  enhanced, colback=white!8, colframe=BrandGold,
+  boxrule=1pt, arc=10pt,
+  width=0.88\textwidth,
+  left=0pt, right=0pt, top=14pt, bottom=14pt
+]
+  \begin{tabular}{C{4.2cm} C{0.4cm} C{4.2cm} C{0.4cm} C{4.2cm}}
+    \color{BrandGold}\fontsize{32}{38}\selectfont\bfseries IB·AP
+    & {\color{BrandGold!40}\Large|}
+    & \color{BrandGold}\fontsize{32}{38}\selectfont\bfseries 1 对 1
+    & {\color{BrandGold!40}\Large|}
+    & \color{BrandGold}\fontsize{32}{38}\selectfont\bfseries 24h
+    \\[3pt]
+    \color{white}\small A-Level · IGCSE
+    & &
+    \color{white}\small 专属辅导，深度互动
+    & &
+    \color{white}\small 顾问全天响应
+  \end{tabular}
+\end{tcolorbox}
+\end{center}
+
+\vspace{10mm}
+
+%% ── 四大核心优势卡片 ─────────────────────────────────────────
+\begin{center}
+\begin{tabular}{C{5.8cm} C{5.8cm}}
+
+  %% 卡片 1
+  \begin{tcolorbox}[
+    enhanced, colback=white!10, colframe=BrandGold!60,
+    boxrule=0.8pt, arc=8pt,
+    left=10pt, right=10pt, top=10pt, bottom=10pt,
+    width=5.6cm, nobeforeafter
+  ]
+    \centering
+    {\color{BrandGold}\Large\bfseries \ding{72}}\\[4pt]
+    {\color{BrandGold}\bfseries 定价完全自主}\\[4pt]
+    {\color{white}\small 自主设定课时费\\无任何价格干预}
+  \end{tcolorbox}
+
+  &
+
+  %% 卡片 2
+  \begin{tcolorbox}[
+    enhanced, colback=white!10, colframe=BrandGold!60,
+    boxrule=0.8pt, arc=8pt,
+    left=10pt, right=10pt, top=10pt, bottom=10pt,
+    width=5.6cm, nobeforeafter
+  ]
+    \centering
+    {\color{BrandGold}\Large\bfseries \ding{108}}\\[4pt]
+    {\color{BrandGold}\bfseries 课后即时到账}\\[4pt]
+    {\color{white}\small 完课收益自动入账\\随时可申请提现}
+  \end{tcolorbox}
+
+  \\[10pt]
+
+  %% 卡片 3
+  \begin{tcolorbox}[
+    enhanced, colback=white!10, colframe=BrandGold!60,
+    boxrule=0.8pt, arc=8pt,
+    left=10pt, right=10pt, top=10pt, bottom=10pt,
+    width=5.6cm, nobeforeafter
+  ]
+    \centering
+    {\color{BrandGold}\Large\bfseries \ding{115}}\\[4pt]
+    {\color{BrandGold}\bfseries 灵活排班自由}\\[4pt]
+    {\color{white}\small 7×24 自由开放时间\\完全不影响主业}
+  \end{tcolorbox}
+
+  &
+
+  %% 卡片 4
+  \begin{tcolorbox}[
+    enhanced, colback=white!10, colframe=BrandGold!60,
+    boxrule=0.8pt, arc=8pt,
+    left=10pt, right=10pt, top=10pt, bottom=10pt,
+    width=5.6cm, nobeforeafter
+  ]
+    \centering
+    {\color{BrandGold}\Large\bfseries \ding{80}}\\[4pt]
+    {\color{BrandGold}\bfseries 平台持续引流}\\[4pt]
+    {\color{white}\small 高评分导师优先推荐\\稳定学生来源}
+  \end{tcolorbox}
+
+\end{tabular}
+\end{center}
+
+\vspace{10mm}
+
+%% ── 申请门槛说明 ──────────────────────────────────────────────
+\begin{center}
+\begin{tcolorbox}[
+  enhanced, colback=BrandGold!18, colframe=BrandGold,
+  boxrule=1pt, arc=8pt,
+  width=0.88\textwidth,
+  left=14pt, right=14pt, top=10pt, bottom=10pt
+]
+  \centering
+  {\color{BrandGold}\bfseries 申请资格}\\[6pt]
+  {\color{GrayDark}\small
+    本科及以上学历 \quad\textbullet\quad
+    熟悉国际课程体系 \quad\textbullet\quad
+    无需教师资格证\\[4pt]
+    牛津 · 剑桥 · LSE · 港大 · 985/211 · QS Top 100 优先录取}
+\end{tcolorbox}
+\end{center}
+
+\vfill
+
+%% ── CTA 底部 ─────────────────────────────────────────────────
+\begin{center}
+  \begin{tcolorbox}[
+    enhanced, colback=BrandGold, colframe=BrandGold,
+    arc=8pt, width=7.5cm, nobeforeafter,
+    left=8pt, right=8pt, top=10pt, bottom=10pt
+  ]
+    \centering
+    {\color{GrayDark}\bfseries\large
+      立即访问官网申请入驻}\\[4pt]
+    {\color{GrayDark}\small\bfseries www.yaokaojiaoyu.com}
+  \end{tcolorbox}
+
+  \vspace{6mm}
+
+  {\color{white!60}\small
+    微信客服：\textbf{UBxiaozhushou} \quad $\cdot$ \quad
+    邮箱：support@yaokaojiaoyu.com}
+
+  \vspace{10mm}
+\end{center}
+
+\newpage
+
+%% ────────────────────────────────────────────────────────────
+%%  海报 2：收益专题海报（利益驱动版）
+%%  目标受众：在考虑变现渠道的高校学生/毕业生
+%% ────────────────────────────────────────────────────────────
+
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[GrayLight] (current page.north west) rectangle (current page.south east);
+  \fill[BrandBlue]
+    (current page.north west)
+    rectangle ([yshift=-58mm]current page.north east);
+  \fill[BrandGold]
+    ([yshift=-3mm]current page.north west)
+    rectangle ([yshift=-7mm]current page.north east);
+  \fill[BrandGold, opacity=0.12]
+    ([xshift=-80mm]current page.north east)
+    -- (current page.north east)
+    -- ([yshift=-60mm]current page.north east)
+    -- cycle;
+\end{tikzpicture}
+
+\vspace*{12mm}
+
+\begin{center}
+  \includegraphics[width=4.8cm]{logo-title.png}
+
+  \vspace{8mm}
+
+  {\color{BrandGold}\fontsize{12}{18}\selectfont\bfseries 收益透明 · 自由定价 · 即时到账}
+
+  \vspace{4mm}
+
+  {\color{white}\fontsize{34}{44}\selectfont\bfseries\CJKfamily{zhsf}
+    让专业知识\\持续产生收益}
+\end{center}
+
+\vspace{18mm}
+
+%% ── 四步收益路径 ──────────────────────────────────────────────
+\begin{center}
+\begin{tcolorbox}[
+  enhanced, colback=white, colframe=GrayBorder,
+  boxrule=0.8pt, arc=10pt,
+  width=0.9\textwidth,
+  left=16pt, right=16pt, top=16pt, bottom=16pt
+]
+  {\color{BrandBlue}\bfseries\large 你的收益路径}\\[12pt]
+
+  \renewcommand{\arraystretch}{1.8}
+  \begin{tabular}{C{1.2cm} p{10.5cm}}
+
+    \cellcolor{BrandBlue}\color{white}\bfseries 01
+    & \color{GrayDark}\bfseries 自主定价
+      {\color{GrayMid}\small\ —\ 根据你的学历与经验自由设置课时费，平台不干预} \\
+
+    \cellcolor{BrandBlueMid}\color{white}\bfseries 02
+    & \color{GrayDark}\bfseries 学生预约
+      {\color{GrayMid}\small\ —\ 平台为认证导师持续匹配学生，高评分享流量加权} \\
+
+    \cellcolor{BrandBlue}\color{white}\bfseries 03
+    & \color{GrayDark}\bfseries 完课即结算
+      {\color{GrayMid}\small\ —\ 课程完成后收益自动到账，无月结等待周期} \\
+
+    \cellcolor{BrandBlueMid}\color{white}\bfseries 04
+    & \color{GrayDark}\bfseries 随时提现
+      {\color{GrayMid}\small\ —\ 余额 T+1 到账，账单完全透明，无隐性扣费} \\
+
+  \end{tabular}
+\end{tcolorbox}
+\end{center}
+
+\vspace{10mm}
+
+%% ── 平台保障亮点 ──────────────────────────────────────────────
+\begin{center}
+  {\color{BrandBlue}\bfseries\large 平台保障你的每一份付出}\\[10pt]
+
+  \begin{tabular}{C{3.8cm} C{3.8cm} C{3.8cm}}
+
+    \begin{tcolorbox}[
+      enhanced, colback=BrandBlueLt, colframe=BrandBlue,
+      leftrule=3pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+      arc=0pt, width=3.5cm, nobeforeafter,
+      left=8pt, right=8pt, top=8pt, bottom=8pt
+    ]
+      {\color{BrandBlue}\bfseries 交易保障}\\[4pt]
+      {\color{GrayMid}\small 学生恶意取消时\\导师获全额或\\部分补偿}
+    \end{tcolorbox}
+
+    &
+
+    \begin{tcolorbox}[
+      enhanced, colback=GreenLt, colframe=GreenOk,
+      leftrule=3pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+      arc=0pt, width=3.5cm, nobeforeafter,
+      left=8pt, right=8pt, top=8pt, bottom=8pt
+    ]
+      {\color{GreenOk}\bfseries 优质奖励}\\[4pt]
+      {\color{GrayMid}\small 高评分导师享\\专项奖励计划\\收入持续增长}
+    \end{tcolorbox}
+
+    &
+
+    \begin{tcolorbox}[
+      enhanced, colback=BrandGoldLt, colframe=BrandGold,
+      leftrule=3pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+      arc=0pt, width=3.5cm, nobeforeafter,
+      left=8pt, right=8pt, top=8pt, bottom=8pt
+    ]
+      {\color{BrandGold}\bfseries 认证加权}\\[4pt]
+      {\color{GrayMid}\small「耀考认证导师」\\标识优先展示\\搜索排名靠前}
+    \end{tcolorbox}
+
+  \end{tabular}
+\end{center}
+
+\vspace{10mm}
+
+%% ── 适合人群 ─────────────────────────────────────────────────
+\begin{center}
+\begin{tcolorbox}[
+  enhanced, colback=white, colframe=GrayBorder,
+  boxrule=0.8pt, arc=10pt,
+  width=0.9\textwidth,
+  left=16pt, right=16pt, top=14pt, bottom=14pt
+]
+  {\color{BrandBlue}\bfseries\large 适合你入驻，如果你是……}\\[10pt]
+  \begin{itemize}[leftmargin=1.4em, itemsep=6pt, label={\color{GreenOk}\ding{51}}]
+    \item {\color{GrayDark} 牛津·剑桥·LSE·港大·985/211 等名校在读或毕业生}
+    \item {\color{GrayDark} 熟悉 IB / AP / A-Level / IGCSE 课程体系}
+    \item {\color{GrayDark} 希望在不影响主业的情况下将专业知识变现}
+    \item {\color{GrayDark} 每周有 10 小时以上的稳定可用时间}
+    \item {\color{GrayDark} 拥有稳定网络和电脑设备，可进行高清视频授课}
+  \end{itemize}
+\end{tcolorbox}
+\end{center}
+
+\vfill
+
+%% ── CTA ──────────────────────────────────────────────────────
+\begin{center}
+  \begin{tcolorbox}[
+    enhanced, colback=BrandBlue, colframe=BrandBlue,
+    arc=10pt, width=0.9\textwidth, nobeforeafter,
+    left=20pt, right=20pt, top=16pt, bottom=16pt
+  ]
+    \centering
+    {\color{BrandGold}\bfseries\Large 15 分钟完成申请 · 3 个工作日完成审核}\\[8pt]
+    {\color{white!80} 认证通过后即可上线接单，正式开启你的辅导之旅}\\[12pt]
+    {\color{BrandGold}\bfseries www.yaokaojiaoyu.com}
+    \quad{\color{white!40}|}\quad
+    {\color{white!70}\small 微信：UBxiaozhushou}
+  \end{tcolorbox}
+
+  \vspace{8mm}
+\end{center}
+
+\newpage
+
+%% ────────────────────────────────────────────────────────────
+%%  海报 3：品质信任海报（背书建立版）
+%%  目标受众：对平台可信度有顾虑的潜在导师
+%% ────────────────────────────────────────────────────────────
+
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[white] (current page.north west) rectangle (current page.south east);
+  \fill[BrandGold!8]
+    ([yshift=-110mm]current page.north west)
+    rectangle ([yshift=-220mm]current page.north east);
+  \fill[BrandGold]
+    (current page.north west)
+    rectangle ([yshift=-5mm]current page.north east);
+  \fill[BrandBlue]
+    ([yshift=-5mm]current page.north west)
+    rectangle ([yshift=-55mm]current page.north east);
+\end{tikzpicture}
+
+\vspace*{10mm}
+
+\begin{center}
+  \includegraphics[width=4.8cm]{logo-title.png}
+
+  \vspace{8mm}
+
+  {\color{white}\fontsize{11}{16}\selectfont 专注国际课程辅导 · 严选名校导师}
+
+  \vspace{4mm}
+
+  {\color{BrandGold}\fontsize{30}{40}\selectfont\bfseries\CJKfamily{zhsf}
+    为什么选择耀考？}
+\end{center}
+
+\vspace{20mm}
+
+%% ── 六大信任背书 ──────────────────────────────────────────────
+\begin{center}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{C{5.8cm} C{5.8cm}}
+
+  %% 1
+  \begin{tcolorbox}[
+    enhanced, colback=BrandBlueLt, colframe=BrandBlue,
+    leftrule=4pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+    arc=0pt, width=5.5cm, nobeforeafter, height=3.4cm,
+    left=12pt, right=8pt, top=10pt, bottom=10pt
+  ]
+    {\color{BrandBlue}\bfseries 导师录取率不足 20\%}\\[6pt]
+    {\color{GrayMid}\small 严格筛选确保平台教学质量，让学生和导师都在高标准环境中成长}
+  \end{tcolorbox}
+
+  &
+
+  %% 2
+  \begin{tcolorbox}[
+    enhanced, colback=BrandGoldLt, colframe=BrandGold,
+    leftrule=4pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+    arc=0pt, width=5.5cm, nobeforeafter, height=3.4cm,
+    left=12pt, right=8pt, top=10pt, bottom=10pt
+  ]
+    {\color{BrandGold}\bfseries 名校师资优先曝光}\\[6pt]
+    {\color{GrayMid}\small 牛津、剑桥、LSE、港大等背景导师享有平台首页推荐位优先权}
+  \end{tcolorbox}
+
+  \\[12pt]
+
+  %% 3
+  \begin{tcolorbox}[
+    enhanced, colback=GreenLt, colframe=GreenOk,
+    leftrule=4pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+    arc=0pt, width=5.5cm, nobeforeafter, height=3.4cm,
+    left=12pt, right=8pt, top=10pt, bottom=10pt
+  ]
+    {\color{GreenOk}\bfseries 首次不满意全额退款}\\[6pt]
+    {\color{GrayMid}\small 学生首次试听不满意可申请全额退款，品质承诺让导师授课无后顾之忧}
+  \end{tcolorbox}
+
+  &
+
+  %% 4
+  \begin{tcolorbox}[
+    enhanced, colback=BrandBlueLt, colframe=BrandBlue,
+    leftrule=4pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+    arc=0pt, width=5.5cm, nobeforeafter, height=3.4cm,
+    left=12pt, right=8pt, top=10pt, bottom=10pt
+  ]
+    {\color{BrandBlue}\bfseries ClassIn 专业教室}\\[6pt]
+    {\color{GrayMid}\small 高清视频 + 互动白板 + 屏幕共享，课后免费回看，专业体验零成本使用}
+  \end{tcolorbox}
+
+  \\[12pt]
+
+  %% 5
+  \begin{tcolorbox}[
+    enhanced, colback=BrandGoldLt, colframe=BrandGold,
+    leftrule=4pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+    arc=0pt, width=5.5cm, nobeforeafter, height=3.4cm,
+    left=12pt, right=8pt, top=10pt, bottom=10pt
+  ]
+    {\color{BrandGold}\bfseries 24 小时顾问响应}\\[6pt]
+    {\color{GrayMid}\small 专属顾问全天候待命，从入驻申请到课后反馈全程陪伴}
+  \end{tcolorbox}
+
+  &
+
+  %% 6
+  \begin{tcolorbox}[
+    enhanced, colback=GreenLt, colframe=GreenOk,
+    leftrule=4pt, toprule=0pt, bottomrule=0pt, rightrule=0pt,
+    arc=0pt, width=5.5cm, nobeforeafter, height=3.4cm,
+    left=12pt, right=8pt, top=10pt, bottom=10pt
+  ]
+    {\color{GreenOk}\bfseries 3 个工作日完成审核}\\[6pt]
+    {\color{GrayMid}\small 提交申请 3 个工作日内出结果，被拒后可不限次数补充材料重新提交}
+  \end{tcolorbox}
+
+\end{tabular}
+\end{center}
+
+\vfill
+
+%% ── 覆盖课程体系 ──────────────────────────────────────────────
+\begin{center}
+\begin{tcolorbox}[
+  enhanced, colback=BrandBlue, colframe=BrandBlue,
+  arc=10pt, width=0.9\textwidth, nobeforeafter,
+  left=16pt, right=16pt, top=14pt, bottom=14pt
+]
+  \centering
+  {\color{BrandGold!80}\small 覆盖课程体系}\\[6pt]
+  {\color{white}\bfseries\large
+    IB \quad\textbullet\quad AP \quad\textbullet\quad A-Level \quad\textbullet\quad IGCSE \quad\textbullet\quad IELTS}\\[8pt]
+  {\color{white!70}\small
+    数学 · 物理 · 化学 · 生物 · 经济 · 计算机 · 英语 · TOK 等全科覆盖}\\[10pt]
+  {\color{BrandGold}\bfseries www.yaokaojiaoyu.com}
+  \quad{\color{white!40}|}\quad
+  {\color{white!70}\small 微信：UBxiaozhushou}
+\end{tcolorbox}
+
+\vspace{8mm}
+\end{center}
+
+\end{document}
